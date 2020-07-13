@@ -1,22 +1,36 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useEffect, useState } from 'react'
+import { getRestaurants } from '../services/zomato'
+import Card from '../components/Card'
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import './index.css'
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+export default function IndexPage() {
+	const [ restaurants, setRestaurants ] = useState([])
 
-export default IndexPage
+	useEffect(() => {
+		getRestaurants().then((res) => {
+			setRestaurants(res)
+		})
+	}, [])
+
+	return (
+		<React.Fragment>
+      <h1 className='heading'>Top 25 Restaurants in NYC</h1>
+			<div className='grid-container'>
+				{restaurants.map((restaurant) => {
+					const item = restaurant.restaurant
+
+					return (
+						<Card
+							name={item.name}
+							featuredImgSrc={item.featured_image}
+							cost={item.average_cost_for_two}
+							rating={item.user_rating.aggregate_rating}
+							zomatoUrl={item.url}
+						/>
+					)
+				})}
+			</div>
+		</React.Fragment>
+	)
+}

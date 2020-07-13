@@ -1,0 +1,33 @@
+body {
+  font-family: 'Inter'
+}
+
+.heading {
+  margin: 20px auto !important;
+  width: fit-content;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 20px;
+  width: 100%;
+  margin: auto;
+}
+
+a[target="_blank"]::after {
+  content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
+  margin: 0 3px 0 5px;
+}
+
+@media (max-width: 972px) {
+  .grid-container {
+    grid-template-columns: auto;
+  }
+}
+
+@media (min-width: 972px) and (max-width: 1500px) {
+  .grid-container {
+    grid-template-columns: auto auto;
+  }
+}
